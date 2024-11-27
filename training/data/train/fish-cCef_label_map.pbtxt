@@ -1,0 +1,25 @@
+item {
+    name: "Bi Color",
+    id: 1,
+    display_name: "Bi Color"
+}
+item {
+    name: "Loach",
+    id: 2,
+    display_name: "Loach"
+}
+item {
+    name: "Small Gray",
+    id: 3,
+    display_name: "Small Gray"
+}
+item {
+    name: "Tang",
+    id: 4,
+    display_name: "Tang"
+}
+item {
+    name: "shrimp",
+    id: 5,
+    display_name: "shrimp"
+}

@@ -1,0 +1,401 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#playerSpotlight {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    border: 2px solid #00d2ff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+h1 {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+canvas {
+    border: 5px ridge purple;
+}
+
+main {
+    position: relative;
+}
+
+.playerSpotlightContainer { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    border: 3px solid #00d2ff;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.5),
+                inset 0 0 15px rgba(0, 210, 255, 0.3);
+    display: flex;
+    gap: 30px;
+    width: auto;
+    height: auto;
+    max-width: 80vw;
+    max-height: 80vh;
+    opacity: 0;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#testStats {
+    padding: 20px;
+    font-family: 'Industry', 'Roboto', sans-serif;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+}
+
+#testStats.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#testStats p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+    padding: 8px 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease-out;
+}
+
+#testStats p.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#testStats h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #00d2ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#testStats b {
+    color: #00d2ff;
+    margin-right: 10px;
+}
+
+.playerSpotlightContainer.centerHighlight {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    animation: spotlightEnter 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.playerSpotlightContainer.close {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes spotlightEnter {
+    0% {
+        transform: translate(-50%, -50%) scale(0) perspective(1000px) rotateY(720deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) perspective(1000px) rotateY(360deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+/* Add a pulsing glow animation to the border */
+@keyframes borderGlow {
+    0% { border-color: #00d2ff; }
+    50% { border-color: #00ff9d; }
+    100% { border-color: #00d2ff; }
+}
+
+.playerSpotlightContainer.centerHighlight {
+    animation: spotlightEnter 1.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+               borderGlow 2s infinite;
+}
+
+.start-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px 30px;
+    font-size: 18px;
+    min-width: 200px;
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+    color: #fff;
+    border: 2px solid #00d2ff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Industry', 'Roboto', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    transition: all 0.2s ease-out;
+}
+
+.start-button:hover {
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+    border-color: #00ffff;
+    transform: translate(-50%, -50%) scale(1.02);
+}
+
+.loading {
+    opacity: 0.7;
+    cursor: wait;
+    pointer-events: none;
+}
+
+.loading:after {
+    content: '...';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80%, 100% { content: ''; }
+}
+
+.loading-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #004e92;
+    border-top: 5px solid #00d2ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: #00d2ff;
+    font-family: 'Industry', 'Roboto', sans-serif;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.loading-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #004e92;
+    border-top: 5px solid #00d2ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+:root {
+    --primary: #00d2ff;
+    --secondary: #004e92;
+    --accent: #00ff9d;
+    --dark: #000428;
+    --text: #ffffff;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--dark) 0%, #001220 100%);
+    color: var(--text);
+    font-family: 'Industry', sans-serif;
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 4, 40, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary);
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-pill {
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+
+/* Main Content */
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px 60px;
+}
+
+.game-container {
+    position: relative;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(0, 4, 40, 0.3);
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+}
+
+.corner-accent {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+}
+
+.top-left {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.top-right {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.bottom-left {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+}
+
+.bottom-right {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: rgba(0, 4, 40, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid var(--primary);
+}
+
+.system-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.stat {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: var(--primary);
+}
+
+.stat span {
+    color: var(--accent);
+}

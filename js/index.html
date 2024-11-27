@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish AI Analysis</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="./resources/p5.sound.min.js"></script>
+    <script defer src="https://unpkg.com/p5.collide2d"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Industry:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">FISHCENTRE<span>AI</span></div>
+        <nav>
+            <div class="stat-pill">LIVE GAMES</div>
+            <div class="stat-pill">Tang League</div>
+            <div class="stat-pill">FINAL STANDINGS</div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="game-container">
+            <div class="corner-accent top-left"></div>
+            <div class="corner-accent top-right"></div>
+            <div class="corner-accent bottom-left"></div>
+            <div class="corner-accent bottom-right"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="system-stats">
+            <div class="stat">FPS: <span id="fps">60</span></div>
+            <div class="stat">LATENCY: <span id="latency">12ms</span></div>
+            <div class="stat">DETECTED: <span id="detected">2</span></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.roboflow.com/0.2.26/roboflow.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
