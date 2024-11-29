@@ -41,7 +41,7 @@ let coins = []
 
 function setup() {
     createCanvas(1280, 720);
-    vid = createVideo('./assets/aquariumShort.mp4', videoLoaded);
+    vid = createVideo('./assets/aquariumMin.mp4', videoLoaded);
     vid.hide();
     
     // Create loading container
