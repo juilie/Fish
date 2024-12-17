@@ -1,4 +1,4 @@
-# FishCentreAI - Interactive Fish Detection Game
+# FishCenterAI - Interactive Fish Detection Game
 
 ## Overview
 FishCentreAI is an interactive web application that uses machine learning to detect and track fish in real-time video. Built with p5.js and the Roboflow API, it gamifies fish tanks by creating a game where fish can collect coins.
