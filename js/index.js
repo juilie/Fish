@@ -41,7 +41,7 @@ let coins = []
 
 function setup() {
     createCanvas(1280, 720);
-    vid = createVideo('./assets/aquariumMin.mp4', videoLoaded);
+    vid = createVideo('./assets/aquariumSmall.mp4', videoLoaded);
     vid.hide();
     
     // Create loading container
@@ -362,11 +362,11 @@ function playerSpotlight(pic, showHat) {
     const main = document.querySelector("main");
     main.appendChild(div);
 
-    if (showHat) { 
-        cottoneye.play();
-    } else {
+    // if (showHat) { 
+    //     cottoneye.play();
+    // } else {
         mvpSong.play();
-    }
+    // }
 
     // Animation sequence
     setTimeout(() => {
