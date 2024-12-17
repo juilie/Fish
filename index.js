@@ -41,8 +41,18 @@ let coins = []
 
 function setup() {
     createCanvas(1280, 720);
-    vid = createVideo('./assets/aquariumSmall.mp4', videoLoaded);
-    vid.hide();
+    vid = createVideo('./assets/aquariumShort.mp4', () => {
+        // Video loaded callback
+        vid.elt.addEventListener('loadeddata', () => {
+            vid.volume(0);
+            vid.hide();
+            // Only start model detection after video is loaded
+            initialized_model.then(model => {
+                loadingContainer.remove();
+                playButton.removeClass('hidden');
+            });
+        });
+    });
     
     // Create loading container
     let loadingContainer = createDiv('');
@@ -275,12 +285,16 @@ function draw() {
     clear();
     image(vid, 0, 0);
     
-    initialized_model.then(function (model) {
-        model.detect(vid.elt).then(function (predictions) {
-            objects = predictions;
-        })
-    });
-
+    if (vid.elt.readyState === 4) { // Check if video is ready
+        initialized_model.then(function (model) {
+            model.detect(vid.elt).then(function (predictions) {
+                objects = predictions;
+            }).catch(error => {
+                console.error('Detection error:', error);
+            });
+        });
+    }
+    
     // Detect Collisions
     for (let i = 0; i < objects.length; i++) {
         // Draw background for nametag
